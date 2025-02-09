@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 class TwoDArray {
 
-    private int[][] mat; // Fixed declaration
+    private int[][] mat;
     private int rows, cols;
 
     TwoDArray(int rows, int cols) {
@@ -27,7 +27,7 @@ class TwoDArray {
                 mat[i][j] = sc.nextInt();
             }
         }
-        sc.close(); // Close scanner to prevent resource leak
+        sc.close();
     }
 
     public void display() {
@@ -50,6 +50,6 @@ class Q4 {
         TwoDArray obj = new TwoDArray(rows, cols);
         obj.insert();
         obj.display();
-        sc.close(); // Close scanner in main method as well
+        sc.close();
     }
 }

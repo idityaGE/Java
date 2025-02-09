@@ -35,6 +35,7 @@ class HomeLoan extends Loan {
         this.repoRate = repoRate;
     }
 
+    @Override
     public double calculateEMI(short noOfYear) {
         this.noOfYear = noOfYear;
         double rateMonthly = (rate + repoRate) / (12 * 100);
@@ -55,6 +56,7 @@ class CarLoan extends Loan {
         this.carModel = carModel;
     }
 
+    @Override
     public double calculateEMI(short noOfYear) {
         this.noOfYear = noOfYear;
         double Price = principal;
