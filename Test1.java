@@ -7,7 +7,7 @@ class Test1 {
         x = y = z = 1;
         System.out.println(x + " " + y + " " + z);
 
-        long a = 1;
+        int a = 1;
         switch (a) {
             case 1:
                 System.out.println("1");
