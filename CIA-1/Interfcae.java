@@ -17,6 +17,10 @@ interface Animal {
     static void act() {
         System.out.println("Animal is acting...");
     }
+
+    default void show() {
+        System.out.println("Default method in B");
+    }
 }
 
 interface Pet {
@@ -24,6 +28,10 @@ interface Pet {
     void play();
 
     void sleep();
+
+    default void show() {
+        System.out.println("Default method in A");
+    }
 }
 
 class Dog implements Pet, Animal {
@@ -43,6 +51,11 @@ class Dog implements Pet, Animal {
     @Override
     public void makeSound() {
         System.out.println("Dog Barks");
+    }
+
+    @Override // must override to solve the confilict
+    public void show() {
+        System.out.println("Overriding default show()");
     }
 
 }
