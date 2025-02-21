@@ -1,80 +1,102 @@
+
 import java.util.*;
 
-// Abstract class representing a generic Shape
 abstract class Shape {
+
     protected String color;
-    
+
     public abstract double getArea();
+
     public abstract double getPerimeter();
+
     public abstract String getProperties();
-    
+
     public void fillColor(String color) {
         this.color = color;
     }
-    
+
     public String getColor() {
         return color;
     }
 }
 
-// Circle class extending Shape
 class Circle extends Shape {
+
     private double radius;
-    
+
     public Circle(double radius) {
         this.radius = radius;
     }
-    
+
+    @Override
     public double getArea() {
         return Math.PI * radius * radius;
     }
-    
+
+    @Override
     public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
-    
+
+    @Override
     public String getProperties() {
         return "Circle: Radius=" + radius + ", Color=" + color;
     }
 }
 
-// Rectangle class extending Shape
 class Rectangle extends Shape {
+
     private double width, height;
-    
+
     public Rectangle(double width, double height) {
         this.width = width;
         this.height = height;
     }
-    
+
+    @Override
     public double getArea() {
         return width * height;
     }
-    
+
+    @Override
     public double getPerimeter() {
         return 2 * (width + height);
     }
-    
+
+    @Override
     public String getProperties() {
         return "Rectangle: Width=" + width + ", Height=" + height + ", Color=" + color;
     }
 }
 
-// Square class extending Rectangle
-class Square extends Rectangle {
+class Square extends Shape {
+
+    private double side;
+
     public Square(double side) {
-        super(side, side);
+        this.side = side;
     }
-    
+
+    @Override
+    public double getArea() {
+        return side * side;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 4 * side;
+    }
+
+    @Override
     public String getProperties() {
-        return "Square: Side=" + super.getArea()/getPerimeter() + ", Color=" + color;
+        return "Square: Side=" + side + ", Color=" + color;
     }
 }
 
-// Triangle class extending Shape
 class Triangle extends Shape {
+    // it can be any triangle, so we need to store all sides and height
     private double base, height, sideA, sideB, sideC;
-    
+
     public Triangle(double base, double height, double sideA, double sideB, double sideC) {
         this.base = base;
         this.height = height;
@@ -82,35 +104,38 @@ class Triangle extends Shape {
         this.sideB = sideB;
         this.sideC = sideC;
     }
-    
+
+    @Override
     public double getArea() {
         return 0.5 * base * height;
     }
-    
+
+    @Override
     public double getPerimeter() {
         return sideA + sideB + sideC;
     }
-    
+
+    @Override
     public String getProperties() {
         return "Triangle: Base=" + base + ", Height=" + height + ", Color=" + color;
     }
 }
 
-// PaintBoard class
 class PaintBoard {
+
     private double width, height;
     private List<Shape> shapes;
-    
+
     public PaintBoard(double width, double height) {
         this.width = width;
         this.height = height;
         shapes = new ArrayList<>();
     }
-    
+
     public void addShape(Shape shape) {
         shapes.add(shape);
     }
-    
+
     public void displayShapes() {
         for (Shape shape : shapes) {
             System.out.println(shape.getProperties() + " | Area: " + shape.getArea() + " | Perimeter: " + shape.getPerimeter());
@@ -118,16 +143,16 @@ class PaintBoard {
     }
 }
 
-// Main class for menu-driven program
 public class PaintBoardApp {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<PaintBoard> boards = new ArrayList<>();
-        
+
         while (true) {
             System.out.println("1. Create Paint Board\n2. Add Shape\n3. Display Shapes\n4. Exit");
             int choice = sc.nextInt();
-            
+
             switch (choice) {
                 case 1:
                     System.out.print("Enter Paint Board Width: ");

@@ -1,7 +1,6 @@
 
 import java.util.*;
 
-// Abstract class representing a PaymentCard
 abstract class PaymentCard {
 
     protected String cardNumber;
@@ -12,7 +11,7 @@ abstract class PaymentCard {
         this.balance = balance;
     }
 
-    public abstract void payment(double amount);
+    public abstract void withdraw(double amount);
 
     public void deposit(double amount) {
         balance += amount;
@@ -24,18 +23,18 @@ abstract class PaymentCard {
     }
 }
 
-// CreditCard class
 class CreditCard extends PaymentCard {
 
-    private double creditLimit;
+    private double cardLimit;
 
-    public CreditCard(String cardNumber, double balance, double creditLimit) {
+    public CreditCard(String cardNumber, double balance, double cardLimit) {
         super(cardNumber, balance);
-        this.creditLimit = creditLimit;
+        this.cardLimit = cardLimit;
     }
 
-    public void payment(double amount) {
-        if (amount <= balance + creditLimit) {
+    @Override
+    public void withdraw(double amount) {
+        if (amount <= balance + cardLimit) {
             balance -= amount;
             System.out.println("Payment Successful: " + amount);
         } else {
@@ -44,14 +43,14 @@ class CreditCard extends PaymentCard {
     }
 }
 
-// DebitCard class
 class DebitCard extends PaymentCard {
 
     public DebitCard(String cardNumber, double balance) {
         super(cardNumber, balance);
     }
 
-    public void payment(double amount) {
+    @Override
+    public void withdraw(double amount) {
         if (amount <= balance) {
             balance -= amount;
             System.out.println("Payment Successful: " + amount);
@@ -61,7 +60,6 @@ class DebitCard extends PaymentCard {
     }
 }
 
-// Customer class
 class Customer {
 
     private String name;
@@ -92,7 +90,7 @@ class Customer {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         if (choice >= 0 && choice < paymentCards.size()) {
-            paymentCards.get(choice).payment(amount);
+            paymentCards.get(choice).withdraw(amount);
         } else {
             System.out.println("Invalid Selection!");
         }
@@ -109,7 +107,6 @@ class Customer {
     }
 }
 
-// Main Menu-driven Program
 public class RetailStoreSystem {
 
     public static void main(String[] args) {
@@ -148,8 +145,8 @@ public class RetailStoreSystem {
                     double balance = sc.nextDouble();
                     if (cardChoice == 1) {
                         System.out.print("Enter Credit Limit: ");
-                        double creditLimit = sc.nextDouble();
-                        customers.get(custIndex).addPaymentCard(new CreditCard(cardNum, balance, creditLimit));
+                        double cardLimit = sc.nextDouble();
+                        customers.get(custIndex).addPaymentCard(new CreditCard(cardNum, balance, cardLimit));
                     } else if (cardChoice == 2) {
                         customers.get(custIndex).addPaymentCard(new DebitCard(cardNum, balance));
                     } else {
@@ -170,10 +167,19 @@ public class RetailStoreSystem {
                     customers.get(custIndex).makePayment(amount);
                     break;
                 case 4:
+                    if (customers.isEmpty()) {
+                        System.out.println("No Customers Available!");
+                        break;
+                    }
+                    sc.nextLine(); // Consume the newline character left by nextInt()
                     System.out.print("Enter Store Name: ");
-                    String storeName = sc.next();
+                    String storeName = sc.nextLine();
                     System.out.println("Select Customer: ");
                     custIndex = sc.nextInt();
+                    if (custIndex < 0 || custIndex >= customers.size()) {
+                        System.out.println("Invalid Selection!");
+                        break;
+                    }
                     customers.get(custIndex).joinStore(storeName);
                     break;
                 case 5:
