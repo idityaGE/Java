@@ -1,5 +1,13 @@
 
+import java.util.Scanner;
+
+
 class Q6 {
+    /**
+     * Write a Java program to represent any given integer number into the
+     * words. Eg. If input is 32132 then output should be “Thirty two thousand
+     * one hundred thirty two”.
+     */
 
     private static String getString(int num) {
         if (num >= 0 && num <= 9) {
@@ -47,7 +55,8 @@ class Q6 {
     }
 
     public static void main(String[] args) {
-        long number = 3021320;
+        Scanner sc = new Scanner(System.in);
+        long number = sc.nextLong();
         String ans = convertToWords(number);
         System.out.println(ans);
     }

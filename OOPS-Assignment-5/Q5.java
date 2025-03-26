@@ -4,6 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Q5 {
+    /**
+     * Write a Java program that takes user input for a phone number and an IP
+     * address. Validate them and print whether they are valid or not.
+     */
 
     private static final String IPADDRESS_PATTERN
             = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}"

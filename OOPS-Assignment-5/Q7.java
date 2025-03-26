@@ -2,6 +2,10 @@
 import java.util.Scanner;
 
 public class Q7 {
+    /**
+     * Input a paragraph from any book, and write the java program to count the
+     * occurrence of any given word in the paragraph.
+     */
 
     public static int countWordOccurrences(String text, String word) {
         String[] words = text.split("\\s+|[.,!?;]");

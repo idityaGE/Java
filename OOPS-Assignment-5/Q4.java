@@ -2,7 +2,10 @@
 import java.util.*;
 
 class Q4 {
-
+    /**
+     * Write a Java program that reads a list of email addresses and filter the
+     * email addresses that start with a capital letter. Print the results.
+     */
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter numbers of Emails :");
@@ -11,7 +14,7 @@ class Q4 {
         String emails[] = new String[n];
 
         for (int i = 0; i < n; i++) {
-            System.out.print("Enter the " + (i + 1) + "Emails :");
+            System.out.print("Enter the " + (i + 1) + " Email :");
             emails[i] = sc.next();
         }
 
