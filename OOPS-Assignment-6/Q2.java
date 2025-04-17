@@ -3,68 +3,66 @@ import java.util.Random;
 
 class SearchTask extends Thread {
 
-    private int[] array;
+    private int[] arr;
     private int start, end, target;
     private boolean found = false;
     private long timeTaken;
 
-    public SearchTask(int[] array, int start, int end, int target) {
-        this.array = array;
+    public SearchTask(int[] arr, int start, int end, int target) {
+        this.arr = arr;
         this.start = start;
         this.end = end;
         this.target = target;
     }
 
+    @Override
     public void run() {
         long startTime = System.nanoTime();
 
         for (int i = start; i < end; i++) {
-            if (array[i] == target) {
+            if (arr[i] == target) {
                 found = true;
-                System.out.println("Thread " + this.getName() + " found the element at index " + i);
+                System.out.println("Thread " + getName() + " found the element at index : " + i);
                 break;
             }
         }
 
         long endTime = System.nanoTime();
-        timeTaken = (endTime - startTime) / 1_000_000; // Convert to milliseconds
+        timeTaken = (endTime - startTime) / 1_000_000; // to milliseconds
 
-        System.out.println("Thread " + this.getName() + " finished in " + timeTaken + " ms");
-    }
-
-    public long getTimeTaken() {
-        return timeTaken;
-    }
-
-    public boolean isFound() {
-        return found;
+        System.out.println("Thread " + getName() + " finished : " + timeTaken + " ms");
     }
 }
 
 public class Q2 {
 
     public static void main(String[] args) {
-        int size = 10_000_000;
-        int[] array = new int[size];
+        int n = 500_000; // same as 500000, this syntax make it readable
+        int[] arr = new int[n];
         Random rand = new Random();
 
-        // Fill array with random numbers
-        for (int i = 0; i < size; i++) {
-            array[i] = rand.nextInt(10_000_000);
+        for (int i = 0; i < n; i++) {
+            arr[i] = rand.nextInt(10_000_000);
         }
+        /* choosing high value to avoid duplicate target but 
+        there is no problem with duplicate value, all thread 
+        will notify if they found the target in their range but 
+        if there are multiple target in the same range if a 
+        thread then It will only notify the first one found.
+         */
 
-        int target = array[rand.nextInt(size)]; // Pick a random value that is guaranteed to exist
+        int target = arr[rand.nextInt(n)];
 
-        int numThreads = 4;
+        int numThreads = 5;
         SearchTask[] threads = new SearchTask[numThreads];
-        int chunkSize = size / numThreads;
+        int chunkSize = n / numThreads;
 
         System.out.println("Searching for: " + target);
 
         for (int i = 0; i < numThreads; i++) {
             int start = i * chunkSize;
-            int end = (i == numThreads - 1) ? size : start + chunkSize;
-            threads[i] = new SearchTask(array, start, end, target);
+            int end = (i == numThreads - 1) ? n : start + chunkSize;
+            threads[i] = new SearchTask(arr, start, end, target);
             threads[i].setName("T" + (i + 1));
             threads[i].start();
         }

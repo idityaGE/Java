@@ -21,8 +21,10 @@ class MyRunnable implements Runnable {
 		for (int i = 1; i <= 5; i++) {
 			System.out.println("MyRunnable: " + i + " - " + Thread.currentThread().getName());
 			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
+                // This sleep method can be Interruped using Thread.interrupted() 
+                // from different thread that why we catch this.
+				Thread.sleep(500); 
+			} catch (InterruptedException e) { 
 				System.out.println("MyRunnable interrupted.");
 			}
 		}
@@ -41,6 +43,7 @@ public class Q1 {
         Thread t2 = new Thread(runnable);
         t2.start();
 
+        // Lamda method
         // Thread t3 = new Thread(() -> {
 		// 	Thread t = Thread.currentThread();
         //     System.out.println("Name: " + t.getName());

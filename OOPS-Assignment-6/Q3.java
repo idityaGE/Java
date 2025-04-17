@@ -24,16 +24,16 @@ class SleepThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("SleepThread: Started");
+        System.out.println(getName() + ": Started");
         for (int i = 1; i <= 3; i++) {
-            System.out.println("SleepThread: " + i);
+            System.out.println(getName() + ": " + i);
             try {
                 Thread.sleep(1000); // Sleep for 1 second
             } catch (InterruptedException e) {
-                System.out.println("SleepThread interrupted");
+                System.out.println(getName() + " interrupted");
             }
         }
-        System.out.println("SleepThread: Finished");
+        System.out.println(getName() + ": Finished");
     }
 }
 
@@ -69,8 +69,8 @@ public class Q3 {
         SleepThread st = new SleepThread();
         JoinThread jt = new JoinThread(st);
 
-        yt.start();  // May give up CPU using yield()
-        st.start();  // Sleeps between iterations
-        jt.start();  // Waits for SleepThread using join()
+        yt.start();
+        st.start();
+        jt.start();
     }
 }

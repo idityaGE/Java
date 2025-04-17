@@ -10,9 +10,9 @@ class MyThread extends Thread {
     public void run() {
         System.out.println("Thread Name : " + Thread.currentThread().getName());
         System.out.println("Thread Priority : " + Thread.currentThread().getPriority());
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 3; i++) 
             System.out.println(getName() + ": " + i);
-        }
+        
         System.out.println(getName() + " finished.\n");
     }
 }
